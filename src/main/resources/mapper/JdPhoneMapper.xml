@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.JdPhoneMapper">
+
+    <sql id="collitemColumns">
+    t.id,t.name,t.price,t.tupian,t.create_time,t.modified_time
+    </sql>
+
+    <resultMap id="ResultMap" type="com.example.demo.entity.JdPhone">
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="price" property="price" />
+    <result column="tupian" property="tupian" />
+    <result column="create_time"  property="createTime" />
+    <result column="modified_time"  property="modifiedTime" />
+    </resultMap>
+    <insert id="save">
+
+    </insert>
+    <select id="findlist" resultType="com.example.demo.entity.JdPhone">
+        SELECT
+        <include refid="collitemColumns" />
+        FROM jd_phone t WHERE 1=1
+    </select>
+</mapper>

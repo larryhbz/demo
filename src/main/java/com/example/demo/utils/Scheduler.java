@@ -21,7 +21,7 @@ public class Scheduler {
     public void testTasks() {
         HttpClientPool pool=new HttpClientPool();
         List<UserEntity> list=userMapper.selectUserList();
-        System.out.println("查询结果" +"" );
+        System.out.println("查询结果" +list );
     }
 
     //每天3：05执行

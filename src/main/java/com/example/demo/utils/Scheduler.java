@@ -20,8 +20,8 @@ public class Scheduler {
     @Scheduled(fixedRate = 100000)
     public void testTasks() {
         HttpClientPool pool=new HttpClientPool();
-        List<UserEntity> list=userMapper.selectUserList();
-        System.out.println("查询结果" +list );
+//        List<UserEntity> list=userMapper.selectUserList();
+//        System.out.println("查询结果" +list );
     }
 
     //每天3：05执行

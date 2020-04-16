@@ -40,11 +40,23 @@ spring:
      classic_compatible: true
   profiles:
     active: dev
-mybatis:
-  typeAliasesPackage: com.pinyu.miniprogram.mysql.entity
-  mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
   configuration:
     map-underscore-to-camel-case: true
+    cache-enabled: false
+  typeAliasesPackage: com.example.demo.entity
+  mapper-locations: classpath:mapper/*.xml
 mapper:
   mappers: com.pinyu.miniprogram.mysql.mappers.BaseMapper
   identity: mysql

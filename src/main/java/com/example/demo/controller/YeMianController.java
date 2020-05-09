@@ -14,10 +14,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/yemian/")
 public class YeMianController {
-    @RequestMapping("index")
-    public String index(Map<String,String> map){
-        return "yemian/index";
-    }
 
     //手动自己设计excel文档方式下载
     @RequestMapping("download")

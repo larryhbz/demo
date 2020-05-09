@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.LoggerOperation;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,15 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-    @RequestMapping("index")
-    public String index(Map<String,String> map){
-        return "login/index";
-    }
 
     @PostMapping("login")
     @ResponseBody
-    public boolean login(@RequestBody UserEntity userEntity){
-        return loginService.login(userEntity);
+    @LoggerOperation(value = "用户登录",type = "1")
+    public String login(@RequestBody UserEntity userEntity){
+        if(loginService.login(userEntity)){
+            return "redirect:/yemian/index.ftl";
+        }else{
+            return "";
+        }
     }
 }

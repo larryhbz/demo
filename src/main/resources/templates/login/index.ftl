@@ -30,18 +30,29 @@
             ruleForm:{name:'',password:''},
             dialogVisible:'',
             loginUrl:'/login/login',
+            userUrl:'/user/list',
+            userId:window.localStorage.getItem("users")
         },
         methods: {
             login(){
                 axios.post(this.loginUrl,this.ruleForm,this).then(function(res){
                     console.log(res.data)
                 });
+                console.log("this.userid",this.userId)
+                debugger
+
             },
             regist(){
                 console.log("ssssss",this.ruleForm)
             }
         },
         mounted:function (){
+            axios.get(this.userUrl,{},this).then(function (response) {
+                window.localStorage.setItem("users",JSON.stringify(response.data));
+            })
+
+        },
+        created:function () {
 
         }
     })

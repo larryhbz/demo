@@ -21,10 +21,10 @@ import java.util.Date;
 @Aspect
 @Component
 public class LoggerAspect {
-     // 定义切点 @Pointcut。是面前注解类的地址。
+    // 定义切点 @Pointcut。是面前注解类的地址。
     @Pointcut("@annotation(com.example.demo.config.LoggerOperation)")
     public void controllerAspect() {
-     }
+    }
 
     //切面 配置通知
     @AfterReturning("controllerAspect()")

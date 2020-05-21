@@ -24,7 +24,7 @@ public class LoginController {
     @LoggerOperation(value = "用户登录",type = "1")
     public String login(@RequestBody UserEntity userEntity){
         if(loginService.login(userEntity)){
-            return "redirect:/yemian/index.ftl";
+            return "yemian";
         }else{
             return "";
         }

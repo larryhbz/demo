@@ -4,7 +4,6 @@
     <#include "./common/common.ftl"/>
 </head>
 <body>
-23333
     <div id="rrapp">
     <button @click="submit">excel下载</button>
     <button @click="modelDownload">模板方式excel文件下载</button>
@@ -15,10 +14,59 @@
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose">
-        <span>这是一段信息</span>
-        <span slot="footer" class="dialog-footer">
+        <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="选择控制">
+                <template>
+                    <el-select v-model="form.name" placeholder="请选择" @change="selectChange">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.key"
+                                :label="item.value"
+                                :value="item.key">
+                        </el-option>
+                    </el-select>
+                </template>
+            </el-form-item>
+            <el-form-item label="黄金糕" v-if="form.name==1">
+                <el-input v-model="form.hjg" placeholder="请输入内容"></el-input>
+            </el-form-item>
+            <el-form-item label="双皮奶" v-if="form.name==2">
+                <el-input v-model="form.spn" placeholder="请输入内容"></el-input>
+            </el-form-item>
+            <el-form-item label="蚵仔煎" v-if="form.name==3">
+                <el-input v-model="form.haj" placeholder="请输入内容"></el-input>
+            </el-form-item>
+            <el-form-item label="龙须面" v-if="form.name==4">
+                <el-input v-model="form.lxm" placeholder="请输入内容"></el-input>
+            </el-form-item>
+            <el-form-item label="选择多选控制">
+                <template>
+                    <el-select v-model="form.double" placeholder="请选择" multiple>
+                        <el-option
+                                v-for="item in options"
+                                :key="item.key"
+                                :label="item.value"
+                                :value="item.key">
+                        </el-option>
+                    </el-select>
+                </template>
+            </el-form-item>
+            <el-form-item label="黄金糕" v-if="form.double.indexOf('1')>-1">
+                asdasda
+            </el-form-item>
+            <el-form-item label="双皮奶" v-if="form.double.indexOf('2')>-1">
+                asdasda
+            </el-form-item>
+            <el-form-item label="蚵仔煎" v-if="form.double.indexOf('3')>-1">
+                asdasda
+            </el-form-item>
+            <el-form-item label="龙须面" v-if="form.double.indexOf('4')>-1">
+                asdasda
+            </el-form-item>
+        </el-form>
+
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="submitForm">确 定</el-button>
   </span>
     </el-dialog>
     <el-upload
@@ -31,21 +79,69 @@
                 :file-list="fileList">
             <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
+        <button @click="zujian">我的第一个组件</button>
+        <first-dialog  :monitor="monitorNote" @closedialog="conDialog" ref="firstDialog"></first-dialog>
     </div>
 </body>
 </html>
+<script src="/myComponents/first.js"></script>
 <script>
     var vm = new Vue({
         el: '#rrapp',
         data: {
-            adornUrl:"download",
-            downloadUrl:"modeldownload",
-            docdownloadUrl:"doc",
+            monitorNote:'',//组件监听的内容
+            adornUrl:"/yemian/download",
+            downloadUrl:"/yemian/modeldownload",
+            docdownloadUrl:"/yemian/doc",
             testTitle:'',
             dialogVisible:false,
             fileList:[],
+            form:{
+                double:'',
+                name:'',
+                hjg:'',
+                spn:'',
+                haj:'',
+                lxm:'',
+            },
+            options:[
+                {
+                    key: '1',
+                    value: '黄金糕'
+                }, {
+                    key: '2',
+                    value: '双皮奶'
+                }, {
+                    key: '3',
+                    value: '蚵仔煎'
+                }, {
+                    key: '4',
+                    value: '龙须面'
+                }, {
+                    key: '5',
+                    value: '北京烤鸭'
+                }
+            ],
         },
     methods: {
+        conDialog(data){
+            console.log("组件跳出来后的显示",data)
+        },
+        zujian(){
+            this.monitorNote="changemonitorNote"
+            this.$refs.firstDialog.open()
+        },
+        selectChange(key1,key2){
+            this.form.hjg=''
+            this.form.spn=''
+            this.form.haj=''
+            this.form.lxm=''
+        },
+        submitForm(){
+            let that = this
+            console.log(that.form)
+            that.dialogVisible=false
+        },
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
@@ -65,9 +161,8 @@
 
         },
         submit: function () {
-            console.log("sadasd")
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', this.adornUrl, true);        // 也可以使用POST方式，根据接口
+            xhr.open('POST', this.adornUrl, true);        // 也可以使用POST方式，根据接口
             xhr.responseType = "blob";    // 返回类型blob
             // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
             xhr.onload = function () {

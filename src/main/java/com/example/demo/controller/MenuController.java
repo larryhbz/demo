@@ -17,4 +17,9 @@ public class MenuController {
     public String login(Map<String,String> map){
         return "login/index";
     }
+
+    @RequestMapping("router")
+    public String router(Map<String,String> map){
+        return "router/index";
+    }
 }

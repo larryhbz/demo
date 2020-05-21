@@ -36,7 +36,7 @@
         methods: {
             login() {
                 axios.post(this.loginUrl, this.ruleForm, this).then(function (res) {
-                    console.log(res.data)
+                    window.location.href="yemian/index"
                 });
                 console.log("this.userid", this.userId)
             },

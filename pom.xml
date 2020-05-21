@@ -169,6 +169,14 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>2.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
